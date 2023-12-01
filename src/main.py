@@ -10,10 +10,11 @@ from typing_extensions import Annotated
 from rich.table import Table
 import shutil
 import platform
+from pathlib import Path
+
 
 # Tagging tools
 curr_time = datetime.datetime.now().strftime("%m-%d-%y")
-userid = os.getenv("USER")
 
 # Typer application CLI
 console = Console()
@@ -38,35 +39,19 @@ os_check()
 def create_image(
     image_dest: Annotated[
         str, typer.Option(help="path to the image")
-    ] = f"vscode_image_{curr_time}/",
+    ] = f"images/vscode_image_{curr_time}",
 ):
+    # Create the directory if it does not exist
+    Path(image_dest).mkdir(parents=True, exist_ok=True)
+
+    # Get the VSCode paths and create image
+    vscode_paths = get_vscode_paths()
     home = os.path.expanduser("~")
 
-    shutil.copytree(
-        f"{home}/Library/Caches/com.microsoft.VSCode",
-        image_dest,
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{home}/Library/Caches/com.microsoft.VSCode.ShipIt",
-        image_dest,
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{home}/Library/Application Support/Code",
-        image_dest,
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{home}/Library/Saved Application State/com.microsoft.VSCode.savedState",
-        image_dest,
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{home}/.vscode",
-        image_dest,
-        dirs_exist_ok=True,
-    )
+    for src_path, img_path in vscode_paths:
+        src_dir = f"{home}/{src_path}"
+        img_dir = f"{image_dest}/{img_path}"
+        shutil.copytree(src_dir, img_dir, dirs_exist_ok=True)
 
 
 @app.command(
@@ -79,33 +64,41 @@ def restore_image(
     if image_dest == "None":
         raise ValueError("Must provide an image to restore from!")
 
+    # Get the VSCode paths and restore from image
+    vscode_paths = get_vscode_paths()
     home = os.path.expanduser("~")
 
-    shutil.copytree(
-        f"{image_dest}/com.microsoft.VSCode",
-        f"{home}/Library/Caches/com.microsoft.VSCode",
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{image_dest}/com.microsoft.VSCode.ShipIt",
-        f"{home}/Library/Caches/com.microsoft.VSCode.ShipIt",
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{image_dest}/Code",
-        f"{home}/Library/Application Support/Code",
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{image_dest}/com.microsoft.VSCode.savedState",
-        f"{home}/Library/Saved Application State/com.microsoft.VSCode.savedState",
-        dirs_exist_ok=True,
-    )
-    shutil.copytree(
-        f"{image_dest}/.vscode",
-        f"{home}/.vscode",
-        dirs_exist_ok=True,
-    )
+    for src_path, img_path in vscode_paths:
+        src_dir = f"{image_dest}/{img_path}"
+        img_dir = f"{home}/{src_path}"
+        shutil.copytree(src_dir, img_dir, dirs_exist_ok=True)
+
+
+def get_vscode_paths():
+    paths = [
+        (
+            "Library/Caches/com.microsoft.VSCode",
+            "com.microsoft.VSCode",
+        ),
+        (
+            "Library/Caches/com.microsoft.VSCode.ShipIt",
+            "com.microsoft.VSCode.ShipIt",
+        ),
+        (
+            "Library/Application Support/Code",
+            "Code",
+        ),
+        (
+            "Library/Saved Application State/com.microsoft.VSCode.savedState",
+            "com.microsoft.VSCode.savedState",
+        ),
+        (
+            ".vscode",
+            ".vscode",
+        ),
+    ]
+
+    return paths
 
 
 if __name__ == "__main__":
