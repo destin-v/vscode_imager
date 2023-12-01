@@ -8,8 +8,8 @@ def test_create_image(tmpdir):
     create_image(tmpdir)
 
     # Check that folders and files exist
-    assert exists(tmpdir + "com.microsoft.VSCode")
-    assert exists(tmpdir + "com.microsoft.VSCode.ShipIt")
-    assert exists(tmpdir + "Code")
-    assert exists(tmpdir + "com.microsoft.VSCode.savedState")
-    assert exists(tmpdir + ".vscode")
+    assert exists(tmpdir + "/com.microsoft.VSCode")
+    assert exists(tmpdir + "/com.microsoft.VSCode.ShipIt")
+    assert exists(tmpdir + "/Code")
+    assert exists(tmpdir + "/com.microsoft.VSCode.savedState")
+    assert exists(tmpdir + "/.vscode")
