@@ -8,11 +8,14 @@
 # 📒 Description
 <figure>
     <p align="center">
-    <img src="docs/pics/program_logo.png" alt="drawing" width="200"/>
+    <img src="docs/pics/program_logo.png" alt="drawing" width="250"/>
     </p>
   <figcaption align = "center"></figcaption>
 </figure>
-VSCode is an extensible editor with great customization and flexibility.  However, this can cause issues when the editor falls into a corrupted state due to extension modifications, user settings, or even version upgrades.  This repo provides a VSCode imager that will make an image of your VSCode settings so that you can always restore back to a previous working state.
+
+VSCode is an extensible editor with great customization and flexibility.  However, this can cause issues when the editor falls into a corrupted state due to extension modifications, user settings, or even version upgrades.  
+
+This repo provides a VSCode imager that will make an image of your VSCode settings so that you can always restore back to a previous working state.
 
 It is recommended that you first setup VSCode to be working prior to using this imager.  Once you image your working VSCode state, you can use the image to restore it back to this working state in the future.
 
