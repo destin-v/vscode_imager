@@ -51,7 +51,7 @@ def autodoc(browser: str | None = None, local_path: str = "save/pdocs"):
             "-d",
             "google",
             "--logo",
-            "https://github.com/destin-v/vs_codex/blob/main/docs/pics/program_logo.png?raw=true",
+            "https://github.com/destin-v/vscode_imager/blob/main/docs/pics/program_logo.png?raw=true",
             "--logo-link",
             "https://github.com/destin-v/vs_codex",
             "--footer-text",
