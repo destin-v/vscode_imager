@@ -1,6 +1,12 @@
 {
+    "___________________________Info___________________________": "",
     "comments.Description": "VsCode Python",
-    "comments.Date": "Sep-08-2023",
+    "comments.Date": "Dec-02-2023",
+    "___________________________Formatter___________________________": "",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
     "___________________________DocString___________________________": "",
     "autoDocstring.docstringFormat": "google",
     "autoDocstring.generateDocstringOnEnter": true,
@@ -38,11 +44,64 @@
     "python.testing.unittestEnabled": false,
     "___________________________Themes___________________________": "",
     "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorCustomizations": {},
+    "editor.tokenColorCustomizations": {
+        // "functions": {
+        //     "fontStyle": "italic bold",
+        // },
+        "textMateRules": [
+            { // class def
+                "scope": "storage.type.class.python",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            { // class name
+                "scope": "entity.name.type.class.python",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            { // class self ref
+                "scope": "variable.parameter.function.language.special.self.python",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            { // function def
+                "scope": "storage.type.function.python",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            { // function name
+                "scope": "entity.name.function.python",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            { // class init
+                "scope": "support.function.magic.python",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            { // decorator
+                "scope": "entity.name.function.decorator.python",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            { // comments
+                "scope": "comment.line.number-sign.python",
+                "settings": {
+                    // "foreground": "#0000008d",
+                }
+            },
+        ]
+    },
     "___________________________Misc___________________________": "",
     "files.exclude": {
         "**/.DS_Store": true,
-    },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
     },
 }
