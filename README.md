@@ -20,7 +20,7 @@ It is recommended that you first setup VSCode to be working prior to using this 
 python >=3.10
 
 ```console
-poetry install 
+poetry install
 ```
 
 # 📔 Usage

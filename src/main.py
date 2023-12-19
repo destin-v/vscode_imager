@@ -1,17 +1,15 @@
 import datetime
 import os.path
-
+import platform
+import shutil
+from pathlib import Path
 
 import typer
 from rich import print
 from rich.console import Console
 from rich.panel import Panel
-from typing_extensions import Annotated
 from rich.table import Table
-import shutil
-import platform
-from pathlib import Path
-
+from typing_extensions import Annotated
 
 # Tagging tools
 curr_time = datetime.datetime.now().strftime("%m-%d-%y")
@@ -25,6 +23,11 @@ app = typer.Typer(
 
 
 def os_check():
+    """Verify the operation system is Mac.  Mac was forked from UNIX and called Darwin.
+
+    Raises:
+        ValueError: Raises error if the OS is not Mac.
+    """
     if "darwin" not in platform.system().lower():
         raise ValueError("This script was designed to run on Mac OS")
 
@@ -41,6 +44,16 @@ def create_image(
         str, typer.Option(help="path to the image")
     ] = f"images/vscode_image_{curr_time}",
 ):
+    """Create an image of VsCode by creating a directory and copying all of the files and folders needed to snapshot the current installation.  This includes copying:
+
+    * VsCode
+    * User Profiles
+    * Extensions
+    * Misc VsCode files
+
+    Args:
+        image_dest (Annotated[ str, typer.Option, optional): The image will be saved to the current working directory at under `images` and tagged with the current date by default. Defaults to "path to the image") ]=f"images/vscode_image_{curr_time}".
+    """
     # Create the directory if it does not exist
     Path(image_dest).mkdir(parents=True, exist_ok=True)
 
@@ -61,6 +74,14 @@ def create_image(
 def restore_image(
     image_dest: Annotated[str, typer.Option(help="path to the image")] = "None",
 ):
+    """Restore VsCode from a previously saved image.  You must provide the path to the image you want to source from.
+
+    Args:
+        image_dest (Annotated[str, typer.Option, optional): The source path of the image to restore from. Defaults to "path to the image")]="None".
+
+    Raises:
+        ValueError: Warning to user that a path must be provided.
+    """
     if image_dest == "None":
         raise ValueError("Must provide an image to restore from!")
 
@@ -74,7 +95,12 @@ def restore_image(
         shutil.copytree(src_dir, img_dir, dirs_exist_ok=True)
 
 
-def get_vscode_paths():
+def get_vscode_paths() -> list[tuple[str, str]]:
+    """A list of all paths that must be copied from in order to create a VsCode image.
+
+    Returns:
+        list[tuple[str, str]]: A list of tuples with path and files/folders for VsCode
+    """
     paths = [
         (
             "Library/Caches/com.microsoft.VSCode",

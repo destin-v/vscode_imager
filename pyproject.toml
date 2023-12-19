@@ -50,6 +50,7 @@ typer = {extras = ["all"], version = "^0.9.0"}
 coverage = "*"
 nox = "*"
 pdoc = "*"
+pre-commit = "*"
 pytest = "*"
 scalene = "*"
 
