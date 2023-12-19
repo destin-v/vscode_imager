@@ -20,10 +20,13 @@ This repo provides a VSCode imager that will make an image of your VSCode settin
 It is recommended that you first setup VSCode to be working prior to using this imager.  Once you image your working VSCode state, you can use the image to restore it back to this working state in the future.
 
 # 🛠️ Installation
-python >=3.10
+Requires `python >=3.10`.
 
 ```console
-poetry install
+pip install poetry          # install poetry if you don't have it
+poetry install              # regular install
+poetry install --with=dev   # development install
+poetry update               # update existing modules to latest
 ```
 
 # 📔 Usage
@@ -51,6 +54,13 @@ Several CI tools have been included with this codex:
 * **scalene**: profiler for evaluating performance
 
 The `noxfile.py` provides an example of how to run each of these.  The `src/ci` folder contains common CI modules.  For an explaination on how to properly setup multiple versions of Python to run with Nox see [here](https://sethmlarson.dev/nox-pyenv-all-python-versions).
+
+# 🧭 Website
+Documentation of the code is provided via `pdoc` which hosts a website and provides a search engine.  To display the website:
+
+```console
+nox -r -s autodoc
+```
 
 # 🔧 Troubleshooting
 You cannot have VSCode open when attempting to create an image because there are certain files that the program opens and locks.  If VSCode is open while using this imager you will likely see an error that states:
