@@ -105,7 +105,7 @@ def uninstall():
     home = os.path.expanduser("~")
 
     dirs_to_remove = [
-        f"/Applications/Visual Studio Code.app"
+        f"/Applications/Visual Studio Code.app",
         f"{home}/Library/Preferences/com.microsoft.VSCode.plist",
         f"{home}/Library/Application Support/Code/",
         f"{home}/Library/Caches/com.microsoft.VSCode",
@@ -117,8 +117,12 @@ def uninstall():
     for dir in dirs_to_remove:
         if os.path.isfile(dir):
             os.remove(dir)
-        if os.path.isdir(dir):
+            print(f":boom: Successfully removed: {dir}")
+        elif os.path.isdir(dir):
             shutil.rmtree(dir)
+            print(f":boom: Successfully removed: {dir}")
+        else:
+            print(f":x: Could not remove: {dir}")
 
 
 def get_vscode_paths() -> list[tuple[str, str]]:
