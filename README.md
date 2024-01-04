@@ -1,8 +1,7 @@
 <figure>
     <p align="center">
-    <img src="docs/pics/logo.gif" alt="drawing" width="600"/>
+    <img src="https://drive.google.com/uc?export=view&id=1yFte-RASCcF1ahkYg1Jybavi-gWje8kp" alt="drawing" width="600"/>
     </p>
-  <figcaption align = "center"></figcaption>
 </figure>
 
 # 📒 Description
@@ -10,7 +9,6 @@
     <p align="center">
     <img src="docs/pics/program_logo.png" alt="drawing" width="250"/>
     </p>
-  <figcaption align = "center"></figcaption>
 </figure>
 
 VSCode is an extensible editor with great customization and flexibility.  However, this can cause issues when the editor falls into a corrupted state due to extension modifications, user settings, or even version upgrades.  
