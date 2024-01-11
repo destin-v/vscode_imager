@@ -61,7 +61,7 @@ jobs:
       - name: Generate pdoc artifact
         run: |
           mkdir -p save/pdocs
-          export PYTHONPATH=/home/runner/work/vscode_imager/vscode_imager/
+          export PYTHONPATH=/Users/runner/work/vscode_imager/vscode_imager/
           nox -r -s pdoc
       # Upload the artifact to the next job
       - name: Upload pdoc artifact
