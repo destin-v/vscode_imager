@@ -34,7 +34,7 @@ concurrency:
 jobs:
   # In the build job we create the static HTML files we want to publish.
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
     steps:
