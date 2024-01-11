@@ -10,7 +10,6 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from typing_extensions import Annotated
-import os
 
 
 # Tagging tools
