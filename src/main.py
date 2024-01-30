@@ -19,6 +19,7 @@ console = Console()
 app = typer.Typer(
     context_settings={"help_option_names": ["-h", "--help"]},
     rich_markup_mode="markdown",
+    epilog="Author: William Li :sunglasses:",
 )
 
 
@@ -37,7 +38,6 @@ os_check()
 
 @app.command(
     help=":mountain: **Create** a new VSCode image.",
-    epilog="Author: William Li :sunglasses:",
 )
 def create_image(
     image_dest: Annotated[
@@ -69,7 +69,6 @@ def create_image(
 
 @app.command(
     help=":mountain: **Restores** a VSCode image.",
-    epilog="Author: William Li :sunglasses:",
 )
 def restore_image(
     image_dest: Annotated[str, typer.Option(help="path to the image")] = "None",
@@ -93,6 +92,35 @@ def restore_image(
         src_dir = f"{image_dest}/{img_path}"
         img_dir = f"{home}/{src_path}"
         shutil.copytree(src_dir, img_dir, dirs_exist_ok=True)
+
+
+@app.command(
+    help=":mountain: **Uninstall** the current VSCode. Must run with sudo privileges by invoking the CLI with sudo...",
+)
+def uninstall():
+    """Completely uninstall the VsCode on your current MacOS system.  This will delete everything including extensions and user settings!  This cannot be undone!"""
+
+    home = os.path.expanduser("~")
+
+    dirs_to_remove = [
+        f"/Applications/Visual Studio Code.app",
+        f"{home}/Library/Preferences/com.microsoft.VSCode.plist",
+        f"{home}/Library/Application Support/Code/",
+        f"{home}/Library/Caches/com.microsoft.VSCode",
+        f"{home}/Library/Caches/com.microsoft.VSCode.ShipIt/",
+        f"{home}/Library/Saved Application State/com.microsoft.VSCode.savedState/",
+        f"{home}/.vscode/",
+    ]
+
+    for dir in dirs_to_remove:
+        if os.path.isfile(dir):
+            os.remove(dir)
+            print(f":boom: Successfully removed: {dir}")
+        elif os.path.isdir(dir):
+            shutil.rmtree(dir)
+            print(f":boom: Successfully removed: {dir}")
+        else:
+            print(f":x: Could not remove: {dir}")
 
 
 def get_vscode_paths() -> list[tuple[str, str]]:
